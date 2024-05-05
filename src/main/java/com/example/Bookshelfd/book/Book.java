@@ -2,8 +2,6 @@ package com.example.Bookshelfd.book;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity(name = "Book")
 @Table(name = "book")
 public class Book {
@@ -18,45 +16,53 @@ public class Book {
             generator = "book_sequence"
     )
     @Column(name = "id", updatable = false)
-    private long id;
+    private String id;
     @Column(name = "title", nullable = false, columnDefinition = "TEXT")
     private String title;
-    @Column(name = "title", nullable = false, columnDefinition = "TEXT")
-    private String author;
-    @Column(name = "title", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "author", nullable = false, columnDefinition = "TEXT")
+    private String[] authors;
+    @Column(name = "cover", nullable = false, columnDefinition = "TEXT")
     private String cover;
-    @Column(name = "title", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
-    @Column(name = "title", nullable = false)
-    private Date published;
+    @Column(name = "publishedDate", nullable = false)
+    private String publishedDate;
+    @Column(name = "printType", nullable = false, columnDefinition = "TEXT")
+    private String printType;
+    @Column(name = "categories", nullable = false, columnDefinition = "TEXT")
+    private String[] categories;
 //    Probably should include ISBN, check API's for type
 
 
     public Book() {
     }
 
-    public Book(String title, String author, String cover, String description, Date published) {
-        this.title = title;
-        this.author = author;
-        this.cover = cover;
-        this.description = description;
-        this.published = published;
-    }
-
-    public Book(long id, String title, String author, String cover, String description, Date published) {
+    public Book(String id, String title, String[] authors, String cover, String description, String publishedDate, String printType, String[] categories) {
         this.id = id;
         this.title = title;
-        this.author = author;
+        this.authors = authors;
         this.cover = cover;
         this.description = description;
-        this.published = published;
+        this.publishedDate = publishedDate;
+        this.printType = printType;
+        this.categories = categories;
     }
 
-    public long getId() {
+    public Book(String title, String[] authors, String cover, String description, String publishedDate, String printType, String[] categories) {
+        this.title = title;
+        this.authors = authors;
+        this.cover = cover;
+        this.description = description;
+        this.publishedDate = publishedDate;
+        this.printType = printType;
+        this.categories = categories;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -68,12 +74,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public String[] getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
     }
 
     public String getCover() {
@@ -92,23 +98,29 @@ public class Book {
         this.description = description;
     }
 
-    public Date getPublished() {
-        return published;
+    public String getPublishedDate() {
+        return publishedDate;
     }
 
-    public void setPublished(Date published) {
-        this.published = published;
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
     }
 
-    @Override
-    public String toString() {
-        return "book{" +
-                "id=" + id +
-                ", name='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", cover='" + cover + '\'' +
-                ", description='" + description + '\'' +
-                ", published=" + published +
-                '}';
+    public String getPrintType() {
+        return printType;
     }
+
+    public void setPrintType(String printType) {
+        this.printType = printType;
+    }
+
+    public String[] getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String[] categories) {
+        this.categories = categories;
+    }
+
+
 }

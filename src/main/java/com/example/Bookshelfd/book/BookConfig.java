@@ -12,12 +12,14 @@ public class BookConfig {
     CommandLineRunner commandLineRunner(BookRepository bookRepository) {
         return args -> {
             Book AssassinsApprentice = new Book(
-                    1L,
+                    "sghofgh",
                     "Assassin's Apprentice",
-                    "Robin Hobb",
+                    new String[]{"Robin Hobb"},
                     "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1673728072i/77197.jpg",
                     "In a faraway land where members of the royal family are named for the virtues they embody, one young boy will become a walking enigma.",
-                    1995
+                    "1995",
+                    "Book",
+                    new String[]{"Fiction"}
             );
 
             bookRepository.saveAll(
