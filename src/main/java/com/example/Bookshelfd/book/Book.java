@@ -1,6 +1,10 @@
 package com.example.Bookshelfd.book;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import java.util.List;
 
 @Entity(name = "Book")
 @Table(name = "book")
@@ -16,11 +20,12 @@ public class Book {
             generator = "book_sequence"
     )
     @Column(name = "id", updatable = false)
-    private String id;
+    private Long id;
     @Column(name = "title", nullable = false, columnDefinition = "TEXT")
     private String title;
-    @Column(name = "author", nullable = false, columnDefinition = "TEXT")
-    private String[] authors;
+    @Column(name = "authors", nullable = false, columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<String> authors;
     @Column(name = "cover", nullable = false, columnDefinition = "TEXT")
     private String cover;
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
@@ -29,15 +34,15 @@ public class Book {
     private String publishedDate;
     @Column(name = "printType", nullable = false, columnDefinition = "TEXT")
     private String printType;
-    @Column(name = "categories", nullable = false, columnDefinition = "TEXT")
-    private String[] categories;
-//    Probably should include ISBN, check API's for type
+    @Column(name = "categories", nullable = false, columnDefinition = "jsonb")
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<String> categories;
 
 
     public Book() {
     }
 
-    public Book(String id, String title, String[] authors, String cover, String description, String publishedDate, String printType, String[] categories) {
+    public Book(Long id, String title, List<String> authors, String cover, String description, String publishedDate, String printType, List<String> categories) {
         this.id = id;
         this.title = title;
         this.authors = authors;
@@ -48,7 +53,7 @@ public class Book {
         this.categories = categories;
     }
 
-    public Book(String title, String[] authors, String cover, String description, String publishedDate, String printType, String[] categories) {
+    public Book(String title, List<String> authors, String cover, String description, String publishedDate, String printType, List<String> categories) {
         this.title = title;
         this.authors = authors;
         this.cover = cover;
@@ -58,11 +63,11 @@ public class Book {
         this.categories = categories;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -74,11 +79,11 @@ public class Book {
         this.title = title;
     }
 
-    public String[] getAuthors() {
+    public List<String> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(String[] authors) {
+    public void setAuthors(List<String> authors) {
         this.authors = authors;
     }
 
@@ -114,11 +119,11 @@ public class Book {
         this.printType = printType;
     }
 
-    public String[] getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
-    public void setCategories(String[] categories) {
+    public void setCategories(List<String> categories) {
         this.categories = categories;
     }
 

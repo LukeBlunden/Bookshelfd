@@ -1,15 +1,14 @@
 package com.example.Bookshelfd.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "api/v1/book")
+@RequestMapping(path = "/book")
 public class BookController {
     private final BookService bookService;
 
@@ -18,13 +17,15 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping
-    public List<Book> getBooks() {
-        return bookService.getBooks();
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Book>> findAllBooks() {
+        List<Book> books = bookService.findAllBooks();
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
-    @PostMapping
-    public void postBook() {
-
+    @PostMapping(path = "/add")
+    public ResponseEntity<Book> addBook(@RequestBody Book book) {
+        Book newBook = bookService.addBook(book);
+        return new ResponseEntity<>(newBook, HttpStatus.CREATED);
     }
 }
