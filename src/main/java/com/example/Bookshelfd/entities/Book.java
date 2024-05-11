@@ -1,4 +1,4 @@
-package com.example.Bookshelfd.book;
+package com.example.Bookshelfd.entities;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -23,6 +23,8 @@ public class Book {
     private Long id;
     @Column(name = "title", nullable = false, columnDefinition = "TEXT")
     private String title;
+    @Column(name = "url", nullable = false, columnDefinition = "TEXT")
+    private String url;
     @Column(name = "authors", nullable = false, columnDefinition = "jsonb")
     @JdbcTypeCode(SqlTypes.JSON)
     private List<String> authors;
@@ -42,9 +44,10 @@ public class Book {
     public Book() {
     }
 
-    public Book(Long id, String title, List<String> authors, String cover, String description, String publishedDate, String printType, List<String> categories) {
+    public Book(Long id, String title, String url, List<String> authors, String cover, String description, String publishedDate, String printType, List<String> categories) {
         this.id = id;
         this.title = title;
+        this.url = url;
         this.authors = authors;
         this.cover = cover;
         this.description = description;
@@ -53,8 +56,9 @@ public class Book {
         this.categories = categories;
     }
 
-    public Book(String title, List<String> authors, String cover, String description, String publishedDate, String printType, List<String> categories) {
+    public Book(String title, String url, List<String> authors, String cover, String description, String publishedDate, String printType, List<String> categories) {
         this.title = title;
+        this.url = url;
         this.authors = authors;
         this.cover = cover;
         this.description = description;
@@ -77,6 +81,14 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<String> getAuthors() {
@@ -128,4 +140,18 @@ public class Book {
     }
 
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", authors=" + authors +
+                ", cover='" + cover + '\'' +
+                ", description='" + description + '\'' +
+                ", publishedDate='" + publishedDate + '\'' +
+                ", printType='" + printType + '\'' +
+                ", categories=" + categories +
+                '}';
+    }
 }

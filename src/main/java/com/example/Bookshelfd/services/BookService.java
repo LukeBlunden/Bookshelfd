@@ -1,5 +1,7 @@
-package com.example.Bookshelfd.book;
+package com.example.Bookshelfd.services;
 
+import com.example.Bookshelfd.entities.Book;
+import com.example.Bookshelfd.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,7 @@
-package com.example.Bookshelfd.book;
+package com.example.Bookshelfd.controllers;
 
+import com.example.Bookshelfd.entities.Book;
+import com.example.Bookshelfd.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
