@@ -1,10 +1,14 @@
 package com.example.Bookshelfd.controllers;
 
+import com.example.Bookshelfd.dtos.AddBookDto;
 import com.example.Bookshelfd.entities.Book;
+import com.example.Bookshelfd.entities.User;
 import com.example.Bookshelfd.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +30,9 @@ public class BookController {
     }
 
     @PostMapping(path = "/add")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
-        Book newBook = bookService.addBook(book);
+    public ResponseEntity<Book> addBook(@RequestBody AddBookDto book, @AuthenticationPrincipal User user) {
+        Long userId = user.getId();
+        Book newBook = bookService.addBook(new Book(userId, book.volumeId(), book.readStatus()));
         return new ResponseEntity<>(newBook, HttpStatus.CREATED);
     }
 }

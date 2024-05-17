@@ -1,6 +1,5 @@
 package com.example.Bookshelfd.controllers;
 
-import com.example.Bookshelfd.entities.User;
 import com.example.Bookshelfd.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
