@@ -4,6 +4,7 @@ import com.example.Bookshelfd.config.auth.TokenProvider;
 import com.example.Bookshelfd.dtos.JwtDto;
 import com.example.Bookshelfd.dtos.SignInDto;
 import com.example.Bookshelfd.dtos.SignUpDto;
+import com.example.Bookshelfd.dtos.UsernameDto;
 import com.example.Bookshelfd.services.AuthService;
 import com.example.Bookshelfd.entities.User;
 import jakarta.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,5 +38,10 @@ public class AuthController {
         var authUser = authenticationManager.authenticate(usernamePassword);
         var accessToken = tokenService.generateAccessToken((User) authUser.getPrincipal());
         return ResponseEntity.ok(new JwtDto(accessToken));
+    }
+
+    @GetMapping("/signedIn")
+    public ResponseEntity<UsernameDto> signedIn(@AuthenticationPrincipal User user) {
+        return new ResponseEntity<>(new UsernameDto(user.getUsername()), HttpStatus.OK);
     }
 }

@@ -7,7 +7,6 @@ import com.example.Bookshelfd.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +33,12 @@ public class BookController {
         Long userId = user.getId();
         Book newBook = bookService.addBook(new Book(userId, book.volumeId(), book.readStatus()));
         return new ResponseEntity<>(newBook, HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/userBooks")
+    public ResponseEntity<List<Book>> findByUserId(@AuthenticationPrincipal User user) {
+        Long userId = user.getId();
+        List<Book> books = bookService.findByUserId(userId);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 }

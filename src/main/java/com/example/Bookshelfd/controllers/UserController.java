@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<String> getAuth() {
-        return new ResponseEntity<>("Authed", HttpStatus.OK);
+    public ResponseEntity<Boolean> getAuth() {
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 }
