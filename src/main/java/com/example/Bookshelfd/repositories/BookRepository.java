@@ -20,4 +20,7 @@ public interface BookRepository  extends JpaRepository<Book, Long> {
 
     @Query(value = "SELECT read_status FROM books WHERE volume_id = :volumeId AND user_id = :userId", nativeQuery = true)
     Boolean findReadStatus(@Param("volumeId") String volumeId, @Param("userId") Long userId);
+
+    @Query(value = "SELECT * FROM books b WHERE volume_id = :volumeId AND user_id = :userId", nativeQuery = true)
+    Book findByVolumeIdAndUserId(@Param("volumeId") String volumeId, @Param("userId") Long userId);
 }

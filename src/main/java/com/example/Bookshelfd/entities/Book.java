@@ -1,16 +1,13 @@
 package com.example.Bookshelfd.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity(name = "books")
 @Table(name = "books")
 @Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Book {
     @Id
@@ -33,6 +30,13 @@ public class Book {
     private Boolean readStatus;
 
     public Book(Long userId, String volumeId, Boolean readStatus) {
+        this.userId = userId;
+        this.volumeId = volumeId;
+        this.readStatus = readStatus;
+    }
+
+    public Book(Long id, Long userId, String volumeId, Boolean readStatus) {
+        this.id = id;
         this.userId = userId;
         this.volumeId = volumeId;
         this.readStatus = readStatus;

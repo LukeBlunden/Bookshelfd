@@ -45,10 +45,7 @@ public class BookController {
     @GetMapping(path = "/readStatus/{volumeId}")
     public ResponseEntity<Boolean> getReadStatus(@PathVariable("volumeId") String volumeId, @AuthenticationPrincipal User user) {
         Long userId = user.getId();
-        System.out.println(volumeId);
-        System.out.println(userId);
         Boolean readStatus = bookService.findReadStatus(volumeId, userId);
-        System.out.println(readStatus);
         return new ResponseEntity<>(readStatus, HttpStatus.OK);
     }
 }

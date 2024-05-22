@@ -21,6 +21,11 @@ public class BookService {
     }
 
     public Book addBook(Book book) {
+        Book existingBook = bookRepository.findByVolumeIdAndUserId(book.getVolumeId(), book.getUserId());
+        if (existingBook != null && book.getReadStatus() != existingBook.getReadStatus()) {
+            existingBook.setReadStatus(!existingBook.getReadStatus());
+            book = existingBook;
+        }
         return bookRepository.save(book);
     }
 
