@@ -25,4 +25,6 @@ public class BookService {
     }
 
     public List<Book> findByUserId(Long userId) { return bookRepository.findByUserId(userId);}
+
+    public Boolean findReadStatus(String volumeId, Long userId) { return bookRepository.findReadStatus(volumeId, userId); }
 }
