@@ -48,4 +48,10 @@ public class BookController {
         Boolean readStatus = bookService.findReadStatus(volumeId, userId);
         return new ResponseEntity<>(readStatus, HttpStatus.OK);
     }
+
+    @DeleteMapping(path = "/delete/{volumeId}")
+    public void deleteBook(@PathVariable("volumeId") String volumeId, @AuthenticationPrincipal User user) {
+        Long userId = user.getId();
+        bookService.deleteBook(volumeId, userId);
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.Bookshelfd.repositories;
 
 import com.example.Bookshelfd.entities.Book;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -23,4 +25,9 @@ public interface BookRepository  extends JpaRepository<Book, Long> {
 
     @Query(value = "SELECT * FROM books b WHERE volume_id = :volumeId AND user_id = :userId", nativeQuery = true)
     Book findByVolumeIdAndUserId(@Param("volumeId") String volumeId, @Param("userId") Long userId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DELETE FROM books WHERE volume_id = :volumeId AND user_id = :userId", nativeQuery = true)
+    void deleteByVolumeIdAndUserId(@Param("volumeId") String volumeId, @Param("userId") Long userId);
 }
