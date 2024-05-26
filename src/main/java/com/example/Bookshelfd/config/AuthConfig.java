@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+// Ref: https://dev.to/m1guelsb/authentication-and-authorization-with-spring-boot-4m2n
 @Configuration
 @EnableWebSecurity
 public class AuthConfig {
@@ -26,10 +27,10 @@ public class AuthConfig {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement((session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)))
+                // All requests require authentication except signing in/ up
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/*").permitAll()
 //                        .requestMatchers(HttpMethod.POST, "/api/v1/books").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.GET, "/user/auth").authenticated()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -20,12 +20,16 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    // Adds book for user to DB
     public Book addBook(Book book) {
+        // Checks if book already exists for that user
         Book existingBook = bookRepository.findByVolumeIdAndUserId(book.getVolumeId(), book.getUserId());
+        // If that book does exist, and if the reading status is different, updates the read status
         if (existingBook != null && book.getReadStatus() != existingBook.getReadStatus()) {
             existingBook.setReadStatus(!existingBook.getReadStatus());
             book = existingBook;
         }
+        // Saves book
         return bookRepository.save(book);
     }
 

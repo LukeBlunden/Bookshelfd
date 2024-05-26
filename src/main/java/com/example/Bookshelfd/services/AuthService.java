@@ -20,7 +20,9 @@ public class AuthService implements UserDetailsService {
         return repository.findByUsername(username);
     }
 
+    // Signup service
     public UserDetails signup(SignUpDto data) throws InvalidJwtException {
+        // Checks username is unique
         if ((repository.findByUsername(data.username()) != null)) {
             throw new InvalidJwtException("Username already exists");
         }
